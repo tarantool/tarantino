@@ -1,0 +1,90 @@
+{
+  "memory": 10,
+  "index": {
+    "user":["uid"],
+    "device":["uid", "sno"]
+  },
+  "relations": {
+      "user": ["device"]
+  },
+  "replication": [
+      "127.0.0.1:5301",
+      "127.0.0.1:5302"
+  ],
+  "auth_token": "1234",
+  "api": {
+      "1": { 
+          "user":{
+              "type": "record",
+              "name": "user",
+              "fields": [
+                  {"name": "uid", "type": "long"},
+                  {"name": "first_name", "type": "string", "default": "user"},
+                  {"name": "last_name", "type": "string", "default": "last"},
+                  {"name": "phone", "type": "string", "default": "no"},
+                  {"name": "social", "type": {
+                      "name": "social",
+                      "type": "record",
+                      "fields": [
+                          {"name": "facebook", "type": "string", "default": "facebook.com"},
+                          {"name": "twitter", "type": "string", "default": "twitter.com"},
+                          {"name": "vimeo", "type": "string", "default": "vimeo.com"},
+                          {"name": "youtube", "type": "string", "default": "youtube.com"}
+                      ]
+                  }, "default": {
+                      "facebook": "facebook.com",
+                      "twitter": "twitter.com",
+                      "vimeo": "vimeo.com",
+                      "youtube": "youtube.com"
+                  }}
+              ]
+          },
+          "device":{
+              "type": "record",
+              "name": "device",
+              "fields": [
+                  {"name": "uid", "type": "long"},
+                  {"name": "sno", "type": "string"},
+                  {"name": "device_name", "type": "string"}
+              ]
+          }
+      },
+      "2": { 
+          "user":{
+              "type": "record",
+              "name": "user",
+              "fields": [
+                  {"name": "uid", "type": "long"},
+                  {"name": "first_name", "type": "string", "default": "user"},
+                  {"name": "last_name", "type": "string", "default": "last"},
+                  {"name": "new_field", "type": "string", "default": "avro test"},
+                  {"name": "phone", "type": "string", "default": "no"},
+                  {"name": "social", "type": {
+                      "name": "social",
+                      "type": "record",
+                      "fields": [
+                          {"name": "facebook", "type": "string", "default": "facebook.com"},
+                          {"name": "twitter", "type": "string", "default": "twitter.com"},
+                          {"name": "vimeo", "type": "string", "default": "vimeo.com"},
+                          {"name": "youtube", "type": "string", "default": "youtube.com"}
+                      ]
+                  }, "default": {
+                      "facebook": "facebook.com",
+                      "twitter": "twitter.com",
+                      "vimeo": "vimeo.com",
+                      "youtube": "youtube.com"
+                  }}
+              ]
+          },
+          "device":{
+              "type": "record",
+              "name": "device",
+              "fields": [
+                  {"name": "uid", "type": "long"},
+                  {"name": "sno", "type": "string"},
+                  {"name": "device_name", "type": "string"}
+              ]
+          }
+      }
+  }
+}
