@@ -27,11 +27,13 @@ return {
         end)
         if ok == false then
             -- split tarantool error message end return only text
-            log.error(string.format(
+            log.info(string.format(
                 '%s:%s', conf, schema:split(err, ':')[3]
             ))
-            os.exit(1)
+            log.info('Start with empty config')
+            return false
         end
+        log.info('Starting from "%s"', path)
         for name, val in pairs(data) do
             self.config[name] = val
         end
@@ -87,8 +89,9 @@ return {
 
     init = function(self, path, port)
         self.config.port = port
-        self:load_config(path)
-        self:create_schema()
+        if self:load_config(path) == nil then
+            self:create_schema()
+        end
         return self.config
     end
 }

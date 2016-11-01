@@ -38,6 +38,9 @@ return {
             --replication_source=server.config.replication
         }
         local first = server.config.base
+        if first == nil then
+            return
+        end
         log.info('Base version: "%s"', first)
         -- create spaces only in one instance (replication)
         if replica == nil or not replica then
@@ -74,6 +77,6 @@ return {
         end)
         require('jit.opt').start('maxtrace=65000')
         require('jit.opt').start('maxmcode=2000')
-        log.info('Tarantino started from configuration "%s"', path)
+        log.info('Tarantino start complete')
     end
 }
