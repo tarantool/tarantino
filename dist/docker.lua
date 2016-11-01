@@ -1,3 +1,3 @@
 require('tarantino'):start(
-    '/opt/tarantool/service.json', 5301
+    '/opt/tarantool/service.json', 3301
 ) 
