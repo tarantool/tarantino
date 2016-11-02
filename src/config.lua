@@ -22,6 +22,12 @@ return {
 
     load_config = function(self, path)
         local data = {}
+
+        if fio.stat(path) == nil then
+            log.info('Starting with empty config')
+            return false
+        end
+
         local ok, err = pcall(function()
             data = json.decode(self:load_file(path))
         end)
@@ -30,7 +36,7 @@ return {
             log.info(string.format(
                 '%s:%s', conf, schema:split(err, ':')[3]
             ))
-            log.info('Start with empty config')
+            log.error("Failed to parse '"..path.."'. It will be ignored.")
             return false
         end
         log.info('Starting from "%s"', path)
