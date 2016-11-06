@@ -20,6 +20,16 @@ return {
         return table.concat(buf)
     end,
 
+    load_token = function(self, path)
+        if fio.stat(path) == nil then
+            log.error('Auth file not found.')
+            return ''
+        end
+        return schema:split(
+            self:load_file(path), '\n'
+        )[1]
+    end,
+
     load_config = function(self, path)
         local data = {}
 
@@ -42,6 +52,11 @@ return {
         log.info('Starting from "%s"', path)
         for name, val in pairs(data) do
             self.config[name] = val
+        end
+        if self.config.auth_token ~= '' then
+            self.config.auth_token = self:load_token(
+                self.config.auth_token
+            )
         end
     end,
 

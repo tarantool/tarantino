@@ -8,7 +8,7 @@
       "user": ["device"]
   },
   "replication": [],
-  "auth_token": "1234",
+  "auth_token": "",
   "api": {
       "1": { 
           "user":{

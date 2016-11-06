@@ -86,9 +86,11 @@ return {
     end,
 
     auth = function(self, request, parsed)
-        -- FIXME: implement simple token auth from config
-	-- use HTTP header tr_token and comapre with config
-        return true
+	-- use HTTP header token and comapre with config
+        if self.config.auth_token == '' then
+            return true
+        end
+        return request.headers['Token'] == self.config.auth_token
     end,
 
     response = function(self, request, parsed, result)
@@ -128,7 +130,21 @@ return {
         end
         return self:response(request, obj, result)
     end,
-
+    refresh = function(self, path)
+        local new_token = config:load_token(path)
+        if new_token == '' then
+            return false
+        end
+        self.config.auth_token = new_token
+        return true
+    end,
+    health = function(self)
+        local status = ''
+        if next(self.config.schema) == nil then
+            status = "Config not found. Please restart container."
+        end
+        return status
+    end,
     start = function(self, path, port)
         self.config = config:init(path, port)
     end

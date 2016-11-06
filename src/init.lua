@@ -18,6 +18,13 @@ function delete(request)
      return server:request('delete', request)
 end
 
+function refresh(path)
+    return server:refresh(path)
+end
+function health_check()
+    return server:health()
+end
+
 return {
     create_index = function(self, space, schema)
         local parts = {}
