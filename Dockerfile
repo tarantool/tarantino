@@ -39,7 +39,7 @@ RUN set -x \
      perl \
      gettext \
      python \
-     py-pip \
+     py2-pip \
   && : "---------- download nginx-upstream-module ----------" \
   && git clone "$NGINX_UPSTREAM_MODULE_URL" /usr/src/nginx_upstream_module \
   && git -C /usr/src/nginx_upstream_module checkout $NGINX_UPSTREAM_MODULE_COMMIT \
